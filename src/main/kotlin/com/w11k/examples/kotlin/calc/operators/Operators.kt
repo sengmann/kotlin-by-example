@@ -19,11 +19,8 @@ data class Variable(val name: String, var value: Int = Int.MIN_VALUE) : Expressi
 }
 
 data class Minus(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
-
     override val symbol = "-"
-
     override fun eval(): Int = leftOperand.eval() - rightOperand.eval()
-
     override fun toString(): String = """$leftOperand - $rightOperand"""
 }
 
@@ -33,11 +30,19 @@ data class Negate(override val operand: Expression) : UnaryOperator {
     override fun toString(): String = "-($operand)"
 }
 
-data class Multiplikate(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
+data class Multiplication(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
 
     override val symbol: String = "*"
 
     override fun eval(): Int {
         return this.leftOperand.eval() * this.rightOperand.eval();
     }
+
+    override fun toString(): String = "$leftOperand * $rightOperand"
+}
+
+data class Diversion(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
+    override val symbol: String = "/"
+    override fun eval(): Int = leftOperand.eval() / rightOperand.eval()
+    override fun toString(): String = "$leftOperand / $rightOperand"
 }
