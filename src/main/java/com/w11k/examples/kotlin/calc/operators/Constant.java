@@ -6,20 +6,20 @@ import java.util.Objects;
 
 public class Constant implements Expression {
 
-    private final double value;
+    private final int value;
 
-    public Constant(double value) {
+    public Constant(int value) {
         this.value = value;
     }
 
     @Override
-    public double eval() {
+    public int eval() {
         return this.value;
     }
 
     @Override
     public String toString() {
-        return String.format("|%.1f|", this.value);
+        return String.format("%d", this.value);
     }
 
     @Override

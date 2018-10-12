@@ -2,55 +2,42 @@ package com.w11k.examples.kotlin.calc.operators
 
 import com.w11k.examples.kotlin.calc.types.Expression
 
-class Variable(val name: String, var value: Double = Double.NaN): Expression {
-    override fun eval(): Double = value
+interface UnaryOperator : Expression {
+    val operand: Expression
+    val symbol: String
+}
+
+interface BinaryOperator : Expression {
+    val leftOperand: Expression
+    val rightOperand: Expression
+    val symbol: String
+}
+
+data class Variable(val name: String, var value: Int = Int.MIN_VALUE) : Expression {
+    override fun eval(): Int = value
     override fun toString(): String = """$name: $value"""
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Variable
-
-        if (name != other.name) return false
-        if (value != other.value) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + value.hashCode()
-        return result
-    }
 }
 
-class Minus(left: Expression, right: Expression) : BinaryOperator(left, right, "-") {
+data class Minus(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
 
-    override fun eval(): Double = leftOperant.eval() - rightOperant.eval()
+    override val symbol = "-"
 
-    override fun toString(): String = """$leftOperant - $rightOperant"""
+    override fun eval(): Int = leftOperand.eval() - rightOperand.eval()
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
+    override fun toString(): String = """$leftOperand - $rightOperand"""
 }
 
-class Negate(operant: Expression): UnaryOperator(operant, "-") {
-    override fun eval(): Double = this.operant.eval() * -1
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
-    }
+data class Negate(override val operand: Expression) : UnaryOperator {
+    override val symbol: String = "-"
+    override fun eval(): Int = this.operand.eval() * -1
+    override fun toString(): String = "-($operand)"
+}
 
-    override fun hashCode(): Int {
-        return super.hashCode()
-    }
+data class Multiplikate(override val leftOperand: Expression, override val rightOperand: Expression) : BinaryOperator {
 
-    override fun toString(): String = """-($operant)"""
+    override val symbol: String = "*"
+
+    override fun eval(): Int {
+        return this.leftOperand.eval() * this.rightOperand.eval();
+    }
 }

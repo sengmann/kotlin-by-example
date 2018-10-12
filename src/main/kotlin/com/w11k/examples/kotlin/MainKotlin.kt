@@ -2,15 +2,17 @@ package com.w11k.examples.kotlin
 
 import com.w11k.examples.kotlin.calc.negate
 import com.w11k.examples.kotlin.calc.operators.Variable
+import com.w11k.examples.kotlin.calc.plus
 import com.w11k.examples.kotlin.calc.toConstant
 import com.w11k.examples.kotlin.library.*
 
 fun main(args: Array<String>) {
     println("Hello Kotlin")
-    val two = 2.0.toConstant()
-    val a = Variable("a")
-    println("""the double 2.0 will be converted to $two and be evaluated to ${two.eval()} and be negated ${two.negate()}""")
+    val two = 2.toConstant()
+    val a = Variable("a", 5)
+    println("""the int 2 will be converted to $two and be evaluated to ${two.eval()} and be negated ${two.negate()}""")
     println("""a is a variable "$a" and has the value ${a.eval()}""")
+    println("""use extension for plus ${two + two} evals to ${(two + two).eval()}""")
 
     println()
     println("---------------------------------------------------------")
