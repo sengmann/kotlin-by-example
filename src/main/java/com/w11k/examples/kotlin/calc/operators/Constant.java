@@ -1,6 +1,7 @@
 package com.w11k.examples.kotlin.calc.operators;
 
 import com.w11k.examples.kotlin.calc.types.Expression;
+import com.w11k.examples.kotlin.calc.types.VariableAssigment;
 
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Constant implements Expression {
     }
 
     @Override
-    public int eval() {
+    public int eval(VariableAssigment variableAssigment) {
         return this.value;
     }
 

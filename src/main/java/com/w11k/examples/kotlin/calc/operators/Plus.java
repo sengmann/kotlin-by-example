@@ -1,6 +1,7 @@
 package com.w11k.examples.kotlin.calc.operators;
 
 import com.w11k.examples.kotlin.calc.types.Expression;
+import com.w11k.examples.kotlin.calc.types.VariableAssigment;
 import org.jetbrains.annotations.NotNull;
 
 public class Plus implements BinaryOperator {
@@ -34,12 +35,12 @@ public class Plus implements BinaryOperator {
     }
 
     @Override
-    public int eval() {
-        return this.getLeftOperand().eval() + this.getRightOperand().eval();
+    public int eval(VariableAssigment variableAssigment) {
+        return this.getLeftOperand().eval(variableAssigment) + this.getRightOperand().eval(variableAssigment);
     }
 
     @Override
     public String toString() {
-        return String.format("%s + %s", leftOperant, rightOperant);
+        return String.format("(%s + %s)", leftOperant, rightOperant);
     }
 }
